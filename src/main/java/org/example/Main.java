@@ -34,8 +34,8 @@ public class Main {
         System.out.println(result);
 
         System.out.println("\n Tâche 4 \n");
-        commandes.stream()
-                .forEach(fields -> System.out.println("Articles : "+fields.getArticles()+", Montant total : "+fields.getMontantTotal()));
+        commandes.forEach(fields -> System.out.println("Articles : " +fields.getArticles()+
+                ", Montant total : "+fields.getMontantTotal()));
 
         System.out.println("\n Tâche 5 \n");
         commandes.stream()
@@ -44,7 +44,8 @@ public class Main {
 
         System.out.println("\n Tâche 6 \n");
         Map<String, Double> resultat = commandes.stream()
-                .collect(Collectors.groupingBy(Commande::getClient, Collectors.summingDouble(Commande::getMontantTotal)));
+                .collect(Collectors.groupingBy(Commande::getClient,
+                        Collectors.summingDouble(Commande::getMontantTotal)));
         System.out.println(resultat);
 
 
@@ -54,6 +55,14 @@ public class Main {
                 .collect(Collectors.toSet())
                 .forEach(System.out::println);
 
+        System.out.println("\n Tâche 8 \n");
+        boolean isLivred = commandes.stream()
+                .collect(Collectors.groupingBy(Commande::getClient))
+                .values()
+                .stream()
+                .allMatch(list -> list.stream().anyMatch(Commande::isEstLivree));
+
+        System.out.println(isLivred? "Tout les client ont bien ete livrée une fois":"Tout les client n'ont bien ete livrée une fois");
 
 
     }

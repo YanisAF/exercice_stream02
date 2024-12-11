@@ -39,7 +39,7 @@ public class Main {
 
         System.out.println("\n Tâche 5 \n");
         commandes.stream()
-                .filter(livre -> livre.isEstLivree())
+                .filter(Commande::isEstLivree)
                 .forEach(System.out::println);
 
         System.out.println("\n Tâche 6 \n");
@@ -47,6 +47,12 @@ public class Main {
                 .collect(Collectors.groupingBy(Commande::getClient, Collectors.summingDouble(Commande::getMontantTotal)));
         System.out.println(resultat);
 
+
+        System.out.println("\n Tâche 7 \n");
+        commandes.stream()
+                .flatMap(e -> e.getArticles().stream())
+                .collect(Collectors.toSet())
+                .forEach(System.out::println);
 
 
 
